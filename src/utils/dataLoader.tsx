@@ -4,6 +4,7 @@ import * as d3 from 'd3';
 export interface JobData {
   jobTitle: string;
   averageSalary: number;
+  jobCount: number;
 }
 
 export interface SalaryData {
@@ -25,7 +26,8 @@ export const loadCSVData = async (csvPath: string): Promise<SalaryData[]> => {
     const jobGroups = d3.group(jobs, d => d.job_title);
     const jobData = Array.from(jobGroups, ([jobTitle, jobRecords]) => {
       const averageSalary = d3.mean(jobRecords, d => d.salary_in_usd) ?? 0;
-      return { jobTitle, averageSalary };
+      const jobCount = jobRecords.length;
+      return { jobTitle, averageSalary, jobCount };
     });
     
     return { year, jobs: jobData };

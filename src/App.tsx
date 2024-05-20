@@ -19,7 +19,7 @@ const App: React.FC = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const csvData = await loadCSVData('/Users/anshu/ml-salary-app/src/salaries.csv');
+        const csvData = await loadCSVData('/salaries.csv');
         setData(csvData);
         //setRawData(csvData);
       } catch (error) {
@@ -66,6 +66,7 @@ return (
           onChange={handleYearChange}
           style={{ width: 200, marginBottom: 20 }}
         >
+          
           {data.map(d => (
             <Option key={d.year} value={d.year}>
               {d.year}
