@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import 'antd/dist/reset.css';
-import { Layout, Select, Typography } from 'antd';
+import { Layout, Select } from 'antd';
 import MainTable from './components/MainTable';
 import CustomLineChart from './components/LineChart';
 //import DetailsTable from '/Users/anshu/ml-salary-app/src/components/DeatilsTable';
 import { loadCSVData,  SalaryData, } from './utils/dataLoader';
 import './App.css';
-import { Table, Button } from 'antd';
+import { Table } from 'antd';
 import { parse } from 'csv-parse/browser/esm';
 
 const { Header, Content } = Layout;
