@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import 'antd/dist/reset.css';
 import { Layout, Select, Typography } from 'antd';
 import MainTable from './components/MainTable';
-//import LineChart from './components/LineChart';
+import CustomLineChart from './components/LineChart';
 //import DetailsTable from '/Users/anshu/ml-salary-app/src/components/DeatilsTable';
 import { loadCSVData,  SalaryData, } from './utils/dataLoader';
 import './App.css';
@@ -14,10 +14,7 @@ const { Option } = Select;
 
 const App: React.FC = () => {
   const [data, setData] = useState<SalaryData[]>([]);
-  //const [rawData, setRawData] = useState<any[]>([]); // Raw data to use for job details
   const [selectedYear, setSelectedYear] = useState<number | null>(null);
-  //const [details, setDetails] = useState<JobDetail[]>([]);
-
   const [dataSource, setDataSource] = useState<any[]>([]);
 
   useEffect(() => {
@@ -91,26 +88,7 @@ const App: React.FC = () => {
   const handleYearChange = (year: number) => {
     setSelectedYear(year);
   };
-  /*useEffect(() => {
-    if (selectedYear !== null) {
-      const jobDetails = loadJobDetails(rawData, selectedYear);
-      setDetails(jobDetails);
-    }
-  },[selectedYear, rawData]);*/
-
-  /*return (
-    <Layout>
-      <Header>
-        <Title style={{ color: 'white' }}>ML Engineer Salaries</Title>
-      </Header>
-      <Content style={{ padding: '20px' }}>
-        <MainTable data={data} onRowClick={(year) => setSelectedYear(year)} />
-        <LineChart data={data} />
-        {selectedYear && <DetailsTable data={details} />}
-      </Content>
-    </Layout>
-  );
-};*/
+  
 
 return (
   <Layout>
@@ -138,6 +116,9 @@ return (
         <MainTable data={data} selectedYear={selectedYear} />
         {selectedYear !== null /*&& <LineChart data={data.filter(d => d.year === selectedYear)*/} 
       </div>
+    </Content>
+    <Content>
+    <CustomLineChart data={data} />
     </Content>
   </Layout>
 );

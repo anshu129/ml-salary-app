@@ -1,63 +1,31 @@
-/* src/components/LineChart.tsx
-import React, { useEffect, useRef } from 'react';
-import {
-  Chart as ChartJS,
-  LineController,
-  LineElement,
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  Tooltip,
-  Legend,
-} from 'chart.js';
+import React from 'react';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import { SalaryData } from '../utils/dataLoader';
-
-ChartJS.register(
-  LineController,
-  LineElement,
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  Tooltip,
-  Legend
-);
 
 interface LineChartProps {
   data: SalaryData[];
 }
 
-const LineChart: React.FC<LineChartProps> = ({ data }) => {
-  const chartRef = useRef<HTMLCanvasElement | null>(null);
-  const chartInstanceRef = useRef<ChartJS | null>(null);
+const CustomLineChart: React.FC<LineChartProps> = ({ data }) => {
+  const chartData = data.map(d => ({
+    year: d.year,
+    totalJobs: d.totalJobs,
+    averageSalary: d.averageSalary,
+  }));
 
-  useEffect(() => {
-    const ctx = chartRef.current?.getContext('2d');
-    if (ctx) {
-      if (chartInstanceRef.current) {
-        chartInstanceRef.current.destroy();
-      }
-      chartInstanceRef.current = new ChartJS(ctx, {
-        type: 'line',
-        data: {
-          labels: data.map((d) => d.year.toString()),
-          datasets: [
-            {
-              label: 'Total Jobs',
-              data: data.map((d) => d.totalJobs),
-              fill: false,
-              backgroundColor: 'blue',
-              borderColor: 'blue',
-            },
-          ],
-        },
-        options: {},
-      });
-    }
-  }, [data]);
-
-  return <canvas ref={chartRef} />;
+  return (
+    <ResponsiveContainer width="100%" height={400}>
+      <LineChart data={chartData}>
+        <CartesianGrid strokeDasharray="3 3" />
+        <XAxis dataKey="year" />
+        <YAxis />
+        <Tooltip />
+        <Legend />
+        <Line type="monotone" dataKey="totalJobs" stroke="#8884d8" activeDot={{ r: 8 }} />
+        <Line type="monotone" dataKey="averageSalary" stroke="#82ca9d" />
+      </LineChart>
+    </ResponsiveContainer>
+  );
 };
 
-export default LineChart;
-*/
-export{};
+export default CustomLineChart;

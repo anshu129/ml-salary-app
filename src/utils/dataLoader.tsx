@@ -10,6 +10,8 @@ export interface JobData {
 export interface SalaryData {
   year: number;
   jobs: JobData[];
+  totalJobs: number;
+  averageSalary: number;
 }
 
 export const loadCSVData = async (csvPath: string): Promise<SalaryData[]> => {
@@ -29,7 +31,9 @@ export const loadCSVData = async (csvPath: string): Promise<SalaryData[]> => {
       const jobCount = jobRecords.length;
       return { jobTitle, averageSalary, jobCount };
     });
-    
-    return { year, jobs: jobData };
+    const totalJobs = jobs.length;
+    const averageSalary = d3.mean(jobs, d => d.salary_in_usd) ?? 0;
+
+    return { year, jobs: jobData, totalJobs, averageSalary };
   });
 };
